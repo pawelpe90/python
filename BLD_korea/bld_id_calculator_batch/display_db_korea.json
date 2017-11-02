@@ -1,0 +1,233 @@
+[
+ {
+   "CityID": 1141,
+   "ISO CC": "kor",
+   "CityName": "changwon_si",
+   "CityCode": "cha",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 1,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 128.68217,
+   "Y coordinate (COS)": 35.226338
+ },
+ {
+   "CityID": 1143,
+   "ISO CC": "kor",
+   "CityName": "daegu",
+   "CityCode": "tae",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 2,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 128.613384,
+   "Y coordinate (COS)": 35.868216
+ },
+ {
+   "CityID": 1144,
+   "ISO CC": "kor",
+   "CityName": "seongnam_si",
+   "CityCode": "seo",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 3,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.120198,
+   "Y coordinate (COS)": 37.391413
+ },
+ {
+   "CityID": 1145,
+   "ISO CC": "kor",
+   "CityName": "seoul",
+   "CityCode": "sel",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 4,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.978005,
+   "Y coordinate (COS)": 37.56556
+ },
+ {
+   "CityID": 1146,
+   "ISO CC": "kor",
+   "CityName": "suwon_si",
+   "CityCode": "swu",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 5,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.03391,
+   "Y coordinate (COS)": 37.266883
+ },
+ {
+   "CityID": 1147,
+   "ISO CC": "kor",
+   "CityName": "yongin_si",
+   "CityCode": "yon",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 6,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.099141,
+   "Y coordinate (COS)": 37.32157
+ },
+ {
+   "CityID": 1148,
+   "ISO CC": "kor",
+   "CityName": "busan",
+   "CityCode": "pus",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 7,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 129.094618,
+   "Y coordinate (COS)": 35.191042
+ },
+ {
+   "CityID": 1149,
+   "ISO CC": "kor",
+   "CityName": "chungcheongbuk_do",
+   "CityCode": "ccb",
+   "Dataset": "kr2",
+   "Numeric codes (ACM)": 8,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.693711,
+   "Y coordinate (COS)": 36.805154
+ },
+ {
+   "CityID": 1150,
+   "ISO CC": "kor",
+   "CityName": "chungcheongnam_do",
+   "CityCode": "ccn",
+   "Dataset": "kr2",
+   "Numeric codes (ACM)": 9,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.794173,
+   "Y coordinate (COS)": 36.517126
+ },
+ {
+   "CityID": 1151,
+   "ISO CC": "kor",
+   "CityName": "jeju_do",
+   "CityCode": "cju",
+   "Dataset": "kr4",
+   "Numeric codes (ACM)": 10,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.496509,
+   "Y coordinate (COS)": 33.489744
+ },
+ {
+   "CityID": 1152,
+   "ISO CC": "kor",
+   "CityName": "daejeon",
+   "CityCode": "djn",
+   "Dataset": "kr2",
+   "Numeric codes (ACM)": 11,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.384731,
+   "Y coordinate (COS)": 36.356706
+ },
+ {
+   "CityID": 1153,
+   "ISO CC": "kor",
+   "CityName": "gyeongsangbuk_do",
+   "CityCode": "gsb",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 12,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 128.865293,
+   "Y coordinate (COS)": 36.495555
+ },
+ {
+   "CityID": 1154,
+   "ISO CC": "kor",
+   "CityName": "gyeongsangnam_do",
+   "CityCode": "gsn",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 13,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 128.238319,
+   "Y coordinate (COS)": 35.480469
+ },
+ {
+   "CityID": 1155,
+   "ISO CC": "kor",
+   "CityName": "gangwon_do",
+   "CityCode": "gwn",
+   "Dataset": "kr2",
+   "Numeric codes (ACM)": 14,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 128.127148,
+   "Y coordinate (COS)": 37.811327
+ },
+ {
+   "CityID": 1156,
+   "ISO CC": "kor",
+   "CityName": "gyeonggi_do",
+   "CityCode": "gyg",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 15,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.522058,
+   "Y coordinate (COS)": 37.412359
+ },
+ {
+   "CityID": 1157,
+   "ISO CC": "kor",
+   "CityName": "incheon",
+   "CityCode": "icn",
+   "Dataset": "kr1",
+   "Numeric codes (ACM)": 16,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.700994,
+   "Y coordinate (COS)": 37.455181
+ },
+ {
+   "CityID": 1158,
+   "ISO CC": "kor",
+   "CityName": "jeollabuk_do",
+   "CityCode": "jeb",
+   "Dataset": "kr4",
+   "Numeric codes (ACM)": 17,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.119236,
+   "Y coordinate (COS)": 35.706841
+ },
+ {
+   "CityID": 1159,
+   "ISO CC": "kor",
+   "CityName": "jellanam_do",
+   "CityCode": "jlm",
+   "Dataset": "kr4",
+   "Numeric codes (ACM)": 18,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.989025,
+   "Y coordinate (COS)": 34.910603
+ },
+ {
+   "CityID": 1160,
+   "ISO CC": "kor",
+   "CityName": "gwangju",
+   "CityCode": "kwj",
+   "Dataset": "kr4",
+   "Numeric codes (ACM)": 19,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 126.909039,
+   "Y coordinate (COS)": 35.16506
+ },
+ {
+   "CityID": 1161,
+   "ISO CC": "kor",
+   "CityName": "sejong_si",
+   "CityCode": "sej",
+   "Dataset": "kr2",
+   "Numeric codes (ACM)": 20,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 127.282234,
+   "Y coordinate (COS)": 36.487002
+ },
+ {
+   "CityID": 1162,
+   "ISO CC": "kor",
+   "CityName": "ulsan",
+   "CityCode": "usn",
+   "Dataset": "kr3",
+   "Numeric codes (ACM)": 21,
+   "UTMZone": "52N",
+   "X coordinate (COS)": 129.323475,
+   "Y coordinate (COS)": 35.548347
+ }
+]
