@@ -2,18 +2,26 @@ import datetime as dt
 import arcpy
 import os
 
-def status(current_time_and_date, content, city = ""):
-	print "{}{}".format(content, city)
-	log_file.write("{} {}{}".format(current_time_and_date, content, city))
+current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")
+log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-provider-log.txt".format(current_time_and_date), "w")
+
+def get_time():
+	return str(dt.datetime.now())[:19].replace(":", "-")
+
+def status(time, content, city = ""):
+	time = get_time()
+	print "{} {}{}".format(time, content, city)
+	log_file.write("{} {}{}\n".format(time, content, city))
 
 def main():
-	current_time_and_date = str(dt.datetime.now())[:19]
+	
+	source_path = "C:\Tools\pyScripts\delta_provider"
 	
 	# Local variables:
-	attribute_template = r"C:\Tools\pyScripts\delta_provider\templates\template.shp"
-	spatial_ref = r"C:\Tools\pyScripts\delta_provider\templates\template.prj"
-	output_path = r"C:\Tools\pyScripts\delta_output" # common place for delta files for all stages of the process
-	log_file = open(r"C:\Tools\pyScripts\delta_provider\{} delta-provider-log.txt".format(current_time_and_date), "w")
+	attribute_template = r"{}\templates\template.shp".format(source_path)
+	spatial_ref = r"{}\templates\template.prj".format(source_path)
+	output_path = r"C:\Users\pruszyns\Desktop\output" # common place for delta files for all stages of the process
+	
 	
 	#cities = ["busan","changwon_si","daegu","daejeon","gwangju","seongnam_si","seoul","suwon_si","ulsan","yongin_si"]
 	cities = ["incheon"]
@@ -21,6 +29,7 @@ def main():
 	previous_release = "1706"
 	
 	for city in cities:
+		current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")
 		try:
 			status(current_time_and_date, "Working on... ", city)
 			
@@ -39,8 +48,8 @@ def main():
 			CopiedFeatures2 = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures2_{}".format(city)
 			
 			# Creating paths to previous and current data
-			previous_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}_{}_raw.shp".format(previous_release,city,previous_release)
-			current_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}_{}_raw.shp".format(current_release,city,current_release)
+			previous_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}\{}_{}_raw.shp".format(previous_release,city,city,previous_release)
+			current_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}\{}_{}_raw.shp".format(current_release,city,city,current_release)
 			
 			# Prepare feature layers to process
 			arcpy.MakeFeatureLayer_management(previous_path, "previous_lyr")
@@ -67,7 +76,7 @@ def main():
 			arcpy.Delete_management(CopiedFeatures1)
 			arcpy.Delete_management(CopiedFeatures2)
 			
-			status(current_time_and_date, "FINISHED for ")
+			status(current_time_and_date, "FINISHED for ", city)
 			
 		except Exception as err:
 			status(current_time_and_date, "Exception found in ", city)
@@ -75,6 +84,7 @@ def main():
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
 			continue
 		
+	status(current_time_and_date, "Application finished.")
 	log_file.close()
 	
 main()
