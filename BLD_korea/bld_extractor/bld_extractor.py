@@ -1,17 +1,3 @@
-######
-#
-# bld_extractor_1.1
-#
-# New features:
-#  - loading extents from fixed location
-#  - folder creation for new cities added
-#  - log_file fixed
-#  - "status" function implemented
-#
-######
-
-
-# Import arcpy module
 import arcpy
 import os
 

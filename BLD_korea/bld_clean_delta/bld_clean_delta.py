@@ -2,11 +2,11 @@ import datetime as dt
 import arcpy
 import os
 
-#current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")
-log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-provider-log.txt".format(get_time()), "w")
 
 def get_time():
 	return str(dt.datetime.now())[:19].replace(":", "-")
+	
+log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-cleaner-log.txt".format(get_time()), "w")
 
 def status(time, content, city = ""):
 	time = get_time()
@@ -17,16 +17,14 @@ def main():
 	# cities = ["seoul","busan","changwon_si","daegu","daejeon","gwangju","incheon","seongnam_si","suwon_si","ulsan","yongin_si"]
 	cities = ["incheon"]
 	current_release = "2017_09"
-	
-	try:
-	
-		for city in cities:
-		
-			status("Working on... ",city)
+
+	for city in cities:
+		try:
+			status(get_time(),"Working on... ",city)
 			
 			if city in ("seoul","busan"):
 				extent_path = r"C:\city\Extents\ACM\{}\coverage_ACM.shp".format(current_release)
-			elif city in ("changwon_si","daegu","daejeon","gwangju","incheon","seongnam_si","suwon_si","ulsan","yongin_si")
+			elif city in ("changwon_si","daegu","daejeon","gwangju","incheon","seongnam_si","suwon_si","ulsan","yongin_si"):
 				extent_path = r"C:\city\Extents\ACMLOD1\{}\coverage_acmlod1.shp".format(current_release)
 			else:
 				continue
@@ -46,13 +44,13 @@ def main():
 			arcpy.MakeFeatureLayer_management(delta_plus_path, "delta_plus")
 			arcpy.MakeFeatureLayer_management(delta_minus_path, "delta_minus")
 			
-			status(current_time_and_date, "Cleaning delta plus files...")
+			status(get_time(), "Cleaning delta plus files...")
 			
 			# Cleaning delta plus files
 			arcpy.SelectLayerByLocation_management("delta_plus", "INTERSECT", extent)
 			arcpy.DeleteRows_management("delta_plus")
 			
-			status(current_time_and_date, "Cleaning delta minus files...")
+			status(get_time(), "Cleaning delta minus files...")
 			
 			# Cleaning delta minus files
 			arcpy.SelectLayerByLocation_management("delta_minus", "INTERSECT", extent)
@@ -63,15 +61,18 @@ def main():
 			arcpy.Delete_management("delta_minus")
 			arcpy.Delete_management(CopiedFeaturesExtent)
 
-			status(current_time_and_date, "FINISHED for ", city)
+			status(get_time(), "FINISHED for ", city)
 			
 		except Exception as err:
-			status(current_time_and_date, "Exception found in ", city)
+			status(get_time(), "Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
+			arcpy.Delete_management("delta_plus")
+			arcpy.Delete_management("delta_minus")
+			arcpy.Delete_management(CopiedFeaturesExtent)
 			continue
 		
-	status(current_time_and_date, "Application finished.")
+	status(get_time(), "Application finished.")
 	
 main()
 log_file.close()		
