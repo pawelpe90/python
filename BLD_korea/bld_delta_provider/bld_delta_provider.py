@@ -2,12 +2,12 @@ import datetime as dt
 import arcpy
 import os
 
-current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")
-log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-provider-log.txt".format(current_time_and_date), "w")
 
 def get_time():
 	return str(dt.datetime.now())[:19].replace(":", "-")
 
+log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-provider-log.txt".format(get_time()), "w")	
+	
 def status(time, content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
@@ -48,8 +48,8 @@ def main():
 			CopiedFeatures2 = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures2_{}".format(city)
 			
 			# Creating paths to previous and current data
-			previous_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}\{}_{}_raw.shp".format(previous_release,city,city,previous_release)
-			current_path = r"C:\city\Building_layer\02_operations\{}_2D_raw_data\{}\{}_{}_raw.shp".format(current_release,city,city,current_release)
+			previous_path = r"C:\city\Building_layer\07_raw_data\{}\{}\{}_{}_raw.shp".format(previous_release,city,city,previous_release)
+			current_path = r"C:\city\Building_layer\07_raw_data\{}\{}\{}_{}_raw.shp".format(current_release,city,city,current_release)
 			
 			# Prepare feature layers to process
 			arcpy.MakeFeatureLayer_management(previous_path, "previous_lyr")
@@ -82,9 +82,13 @@ def main():
 			status(current_time_and_date, "Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
+			arcpy.Delete_management("previous_lyr")
+			arcpy.Delete_management("current_lyr")
+			arcpy.Delete_management(CopiedFeatures1)
+			arcpy.Delete_management(CopiedFeatures2)
 			continue
 		
 	status(current_time_and_date, "Application finished.")
-	log_file.close()
 	
 main()
+log_file.close()

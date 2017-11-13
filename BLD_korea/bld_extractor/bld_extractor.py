@@ -5,7 +5,8 @@ import os
 
 def get_time():
 	return str(dt.datetime.now())[:19].replace(":", "-")
-	
+
+log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} bld-extractor-log.txt".format(get_time()), "w")	
 
 def status(time, content, city = ""):
 	time = get_time()
@@ -14,16 +15,14 @@ def status(time, content, city = ""):
 
 	
 def main():
-	log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} bld-extractor-log.txt".format(get_time()), "w")
 	
-	# Release
 	release = "2017_09"
 	
 	# Local variables:
 	#CopiedFeatures = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures"
 	attribute_template = r"C:\Tools\pyScripts\bld_extractor\templates\template.shp"
 	spatial_ref = r"C:\Tools\pyScripts\bld_extractor\templates\template.prj"
-	output_path = r"C:\city\Building_layer\02_operations"
+	output_path = r"C:\city\Building_layer\07_raw_data\{}".format(release)
 	extents_path = r"C:\city\Extents\BLD\{}\coverage_buildings.shp".format(release)
 	
 
@@ -41,13 +40,13 @@ def main():
 			status(get_time(),"Working on... ",city)
 			
 			# Create city folder
-			path = output_path + "\kor{}\{}".format(release,city)
+			path = output_path + "\\" + city
 	
 			if not os.path.exists(path):
 				os.makedirs(path)
 			
 			# Create shapefile
-			arcpy.CreateFeatureclass_management(output_path, "\{}\{}_{}_raw".format(city,city,release), "POLYGON", attribute_template, "", "", spatial_ref)
+			arcpy.CreateFeatureclass_management(output_path, "{}\{}_{}_raw".format(city,city,release), "POLYGON", attribute_template, "", "", spatial_ref)
 			CopiedFeatures = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures_{}".format(city)
 			CopiedFeaturesExtent = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeaturesExtent_{}".format(city)
 			
@@ -91,13 +90,11 @@ def main():
 			status(get_time(), "Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
-			arcpy.Delete_management("Extent")
-			arcpy.Delete_management(CopiedFeaturesExtent)
-			arcpy.Delete_management(fc_Layer)
-			arcpy.Delete_management(CopiedFeatures)
+			#arcpy.Delete_management("Extent")
+			#arcpy.Delete_management(CopiedFeatures)
 			continue
 			
 	status(get_time(), "Application finished.")	
-	log_file.close()
 	
 main()
+log_file.close()

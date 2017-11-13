@@ -6,14 +6,14 @@ import os
 def get_time():
 	return str(dt.datetime.now())[:19].replace(":", "-")
 
-
+log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-cleaner-log.txt".format(get_time()), "w")
+	
 def status(time, content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
 	
 def main():
-	log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-cleaner-log.txt".format(get_time()), "w")
 	
 	# cities = ["seoul","busan","changwon_si","daegu","daejeon","gwangju","incheon","seongnam_si","suwon_si","ulsan","yongin_si"]
 	cities = ["incheon"]
@@ -74,6 +74,6 @@ def main():
 			continue
 		
 	status(get_time(), "Application finished.")
-	log_file.close()
 	
 main()
+log_file.close()
