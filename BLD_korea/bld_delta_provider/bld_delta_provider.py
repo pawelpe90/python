@@ -25,8 +25,8 @@ def main():
 	
 	#cities = ["busan","changwon_si","daegu","daejeon","gwangju","seongnam_si","seoul","suwon_si","ulsan","yongin_si"]
 	cities = ["incheon"]
-	current_release = "1709"
-	previous_release = "1706"
+	current_release = "2017_09"
+	previous_release = "2017_06"
 	
 	for city in cities:
 		current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")

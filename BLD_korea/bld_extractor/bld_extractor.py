@@ -27,7 +27,7 @@ output_path = r"C:\Tools\pyScripts\bld_extractor\output"
 extents_path = r"C:\city\Extents\BLD\2017_06\coverage_buildings.shp"
 
 # Release
-release = "1706"
+release = "2017_09"
 
 # Set working environment
 arcpy.env.workspace = r"C:\city\Building_layer\06_public_sources\kor\2D\kor{}.gdb".format(release)
