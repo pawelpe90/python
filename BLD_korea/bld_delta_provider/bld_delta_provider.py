@@ -8,7 +8,7 @@ def get_time():
 
 log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} delta-provider-log.txt".format(get_time()), "w")	
 	
-def status(time, content, city = ""):
+def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
@@ -33,13 +33,14 @@ def main():
 		try:
 		
 			# Checking if file already exists
-			shape_path_plus = r"{}\{}\{}_{}_delta_plus.shp".format(output_path,city,city,release)
-			shape_path_minus = r"{}\{}\{}_{}_delta_minus.shp".format(output_path,city,city,release)
+			shape_path_plus = r"{}\{}\{}_{}_delta_plus.shp".format(output_path,city,city,current_release)
+			shape_path_minus = r"{}\{}\{}_{}_delta_minus.shp".format(output_path,city,city,current_release)
 			
 			if os.path.exists(shape_path_plus) and os.path.exists(shape_path_minus):
+				status("Delta files already exists for ",city)
 				continue
 				
-			status(get_time(), "Working on... ", city)
+			status("Working on... ", city)
 			
 			# Create directory
 			path = output_path + "\\" + city
@@ -63,7 +64,7 @@ def main():
 			arcpy.MakeFeatureLayer_management(previous_path, "previous_lyr")
 			arcpy.MakeFeatureLayer_management(current_path, "current_lyr")
 			
-			status(get_time(), "Creating delta minus files...")
+			status("Creating delta minus files...")
 			
 			# Separating features to remove
 			arcpy.SelectLayerByLocation_management("previous_lyr", "ARE_IDENTICAL_TO", "current_lyr", "", "NEW_SELECTION", "INVERT")
@@ -71,7 +72,7 @@ def main():
 			arcpy.Append_management(CopiedFeatures1, output_path + "\{}\{}_{}_delta_minus.shp".format(city,city,current_release), "TEST")
 			arcpy.SelectLayerByAttribute_management("previous_lyr", "CLEAR_SELECTION")
 			
-			status(get_time(), "Creating delta plus files...")
+			status("Creating delta plus files...")
 			
 			# Separating features to add
 			arcpy.SelectLayerByLocation_management("current_lyr", "ARE_IDENTICAL_TO", "previous_lyr", "", "NEW_SELECTION", "INVERT")
@@ -84,10 +85,10 @@ def main():
 			arcpy.Delete_management(CopiedFeatures1)
 			arcpy.Delete_management(CopiedFeatures2)
 			
-			status(get_time(), "FINISHED for ", city)
+			status("FINISHED for ", city)
 			
 		except Exception as err:
-			status(get_time(), "Exception found in ", city)
+			status("Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
 			arcpy.Delete_management("previous_lyr")
@@ -96,7 +97,7 @@ def main():
 			arcpy.Delete_management(CopiedFeatures2)
 			continue
 		
-	status(get_time(), "Application finished.")
+	status("Application finished.")
 	
 main()
 log_file.close()

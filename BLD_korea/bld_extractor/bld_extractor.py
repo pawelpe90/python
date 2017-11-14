@@ -8,7 +8,7 @@ def get_time():
 
 log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} bld-extractor-log.txt".format(get_time()), "w")	
 
-def status(time, content, city = ""):
+def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
@@ -38,12 +38,13 @@ def main():
 		try:
 			
 			# Checking if file already exists
-			shape_path = r"{}\{}\{}\{}_{}_raw.shp".format(output_path,release,city,city,release)
+			shape_path = r"{}\{}\{}_{}_raw.shp".format(output_path,city,city,release)
 			
 			if os.path.exists(shape_path):
+				status("Raw files already exist for ",city)
 				continue
 			
-			status(get_time(),"Working on... ",city)
+			status("Working on... ",city)
 			
 			# Create city folder
 			path = output_path + "\\" + city
@@ -66,7 +67,7 @@ def main():
 			
 			fc_Layer = city
 			
-			status(get_time(),"Building city...")
+			status("Building city...")
 		
 			for fc in fcs:
 				# Process: Make Feature Layer
@@ -90,17 +91,17 @@ def main():
 			arcpy.Delete_management("Extent")
 			arcpy.Delete_management(CopiedFeaturesExtent)
 			
-			status(get_time(),"FINISHED FOR ",city)
+			status("FINISHED FOR ",city)
 	
 		except Exception as err:
-			status(get_time(), "Exception found in ", city)
+			status("Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
 			arcpy.Delete_management("Extent")
 			arcpy.Delete_management(CopiedFeatures)
 			continue
 			
-	status(get_time(), "Application finished.")	
+	status("Application finished.")	
 	
 main()
 log_file.close()
