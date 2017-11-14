@@ -36,7 +36,13 @@ def main():
 	
 	for city in cities:
 		try:
-		
+			
+			# Checking if file already exists
+			shape_path = r"{}\{}\{}\{}_{}_raw.shp".format(output_path,release,city,city,release)
+			
+			if os.path.exists(shape_path):
+				continue
+			
 			status(get_time(),"Working on... ",city)
 			
 			# Create city folder
@@ -90,8 +96,8 @@ def main():
 			status(get_time(), "Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
-			#arcpy.Delete_management("Extent")
-			#arcpy.Delete_management(CopiedFeatures)
+			arcpy.Delete_management("Extent")
+			arcpy.Delete_management(CopiedFeatures)
 			continue
 			
 	status(get_time(), "Application finished.")	

@@ -29,9 +29,17 @@ def main():
 	previous_release = "2017_06"
 	
 	for city in cities:
-		current_time_and_date = str(dt.datetime.now())[:19].replace(":", "-")
+
 		try:
-			status(current_time_and_date, "Working on... ", city)
+		
+			# Checking if file already exists
+			shape_path_plus = r"{}\{}\{}_{}_delta_plus.shp".format(output_path,city,city,release)
+			shape_path_minus = r"{}\{}\{}_{}_delta_minus.shp".format(output_path,city,city,release)
+			
+			if os.path.exists(shape_path_plus) and os.path.exists(shape_path_minus):
+				continue
+				
+			status(get_time(), "Working on... ", city)
 			
 			# Create directory
 			path = output_path + "\\" + city
@@ -55,7 +63,7 @@ def main():
 			arcpy.MakeFeatureLayer_management(previous_path, "previous_lyr")
 			arcpy.MakeFeatureLayer_management(current_path, "current_lyr")
 			
-			status(current_time_and_date, "Creating delta minus files...")
+			status(get_time(), "Creating delta minus files...")
 			
 			# Separating features to remove
 			arcpy.SelectLayerByLocation_management("previous_lyr", "ARE_IDENTICAL_TO", "current_lyr", "", "NEW_SELECTION", "INVERT")
@@ -63,7 +71,7 @@ def main():
 			arcpy.Append_management(CopiedFeatures1, output_path + "\{}\{}_{}_delta_minus.shp".format(city,city,current_release), "TEST")
 			arcpy.SelectLayerByAttribute_management("previous_lyr", "CLEAR_SELECTION")
 			
-			status(current_time_and_date, "Creating delta plus files...")
+			status(get_time(), "Creating delta plus files...")
 			
 			# Separating features to add
 			arcpy.SelectLayerByLocation_management("current_lyr", "ARE_IDENTICAL_TO", "previous_lyr", "", "NEW_SELECTION", "INVERT")
@@ -76,10 +84,10 @@ def main():
 			arcpy.Delete_management(CopiedFeatures1)
 			arcpy.Delete_management(CopiedFeatures2)
 			
-			status(current_time_and_date, "FINISHED for ", city)
+			status(get_time(), "FINISHED for ", city)
 			
 		except Exception as err:
-			status(current_time_and_date, "Exception found in ", city)
+			status(get_time(), "Exception found in ", city)
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
 			arcpy.Delete_management("previous_lyr")
@@ -88,7 +96,7 @@ def main():
 			arcpy.Delete_management(CopiedFeatures2)
 			continue
 		
-	status(current_time_and_date, "Application finished.")
+	status(get_time(), "Application finished.")
 	
 main()
 log_file.close()
