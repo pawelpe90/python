@@ -36,6 +36,7 @@ def main():
 		
 			status("Working on... ",city)
 			
+			
 			city_source = r"C:\city\Building_layer\02_operations\{}_delta_integration\{}\integration\kor_{}_bufo.shp".format(release,city,city)
 			add_delta_source = r"{}\{}\{}_{}_delta_plus.shp".format(output_path,city,city,release)
 			arcpy.CreateFeatureclass_management(output_path, "{}\kor_{}_bufo.shp".format(city,city), "POLYGON", attribute_template, "", "", spatial_ref)
@@ -45,7 +46,9 @@ def main():
 			arcpy.MakeFeatureLayer_management(city_source, "source")
 			arcpy.MakeFeatureLayer_management(add_delta_source, "add_delta")
 			
+			
 			status("Getting max id...")
+			
 			
 			# Getting max id value for reattribute
 			arcpy.CopyFeatures_management("source", CopiedFeatures)
@@ -57,22 +60,29 @@ def main():
 				
 			id_max = max(idcontainer)
 			
-			status("Attributing...")
+			
+			status("Appending...")
+			
 			
 			# Appending source delta to target delta
 			arcpy.Append_management("add_delta",output_path + "\{}\kor_{}_bufo.shp".format(city,city),"NO_TEST")
 			
+			
+			status("Attributing...")
+		
+		
 			# Attributing target delta
 			calculator("delta_target", id_max)
-			
 			
 			# Cleanup
 			arcpy.Delete_management("source")
 			arcpy.Delete_management("add_delta")
 			arcpy.Delete_management(CopiedFeatures)
 			
+			
 			status("FINISHED adding delta for ", city)
 			status("\n")
+			
 			
 		except Exception as err:
 			status("Exception found in ", city)
@@ -82,6 +92,7 @@ def main():
 			arcpy.Delete_management("add_delta")
 			arcpy.Delete_management(CopiedFeatures)
 			continue
+			
 			
 	status("Application finished.")	
 
