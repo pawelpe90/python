@@ -1,0 +1,6 @@
+*.sh
+*.jar
+*.bat
+*.json
+buildings-layer-validation 1.2.5/
+configuration/

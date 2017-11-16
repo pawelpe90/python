@@ -35,6 +35,25 @@ FOR %%x IN (incheon) DO (
 	echo.
 )
 
+echo Running bld_append_delta.py
+python C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\bld_delta_handler\bld_append_delta.py %*
+echo.
+
+
+echo Running bld_prepare_validation.py
+python C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\bld_prepare_validation\bld_prepare_validation.py %*
+echo.
+
+
+echo Starting BVT...
+
+FOR %%x IN (incheon) DO (
+	buildings-layer_start.bat -display console -cityDir C:\city\Building_layer\02_operations\XX_validation\%%x -cityName %%x -countrycode kor
+	echo BVT finished for %%x
+	echo.
+)
+
 echo Processing done!
+echo.
 
 pause
