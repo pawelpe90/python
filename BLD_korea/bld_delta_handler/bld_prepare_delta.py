@@ -8,7 +8,6 @@ def get_time():
 
 log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} bld-prepare-delta-log.txt".format(get_time()), "w")	
 
-
 def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
@@ -19,6 +18,13 @@ def calculator(fc, id_max):
     arcpy.CalculateField_management(fc, "GRNDHEIGHT", "-1")
     arcpy.CalculateField_management(fc, "HEIGHT", "-1")	
 	
+def scope_selector():
+    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+        scope = fscope.readlines()
+        scope_fix = [element.strip() for element in scope]
+		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
+    return scope_filtered
+	
 def main():
 
 	release = "2017_09"
@@ -26,9 +32,7 @@ def main():
 	attribute_template = r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\bld_delta_handler\template\kor_city_bufo.shp"
 	spatial_ref = r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\bld_delta_handler\template\kor_city_bufo.prj"
 	
-	# Below list of all 21 cities
-	#cities = ["changwon_si","daegu","seongnam_si","seoul","suwon_si","yongin_si","busan","chungcheongbuk_do","chungcheongnam_do","daejeon","gyeongsangbuk_do","gyeongsangnam_do","gangwon_do","gyeonggi_do","incheon","jeollabuk_do","jeollanam_do","gwangju","sejong_si","ulsan","jeju_do"]
-	cities = ["incheon"]
+	cities = scope_selector()
 	
 	for city in cities:
 	

@@ -12,19 +12,24 @@ def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
+	
+def scope_selector():
+    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+        scope = fscope.readlines()
+        scope_fix = [element.strip() for element in scope]
+		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
+    return scope_filtered
 
 def main():
 	
-	source_path = "C:\Tools\pyScripts\delta_provider"
-	
 	# Local variables:
+	source_path = "C:\Tools\pyScripts\delta_provider"
 	attribute_template = r"{}\templates\template.shp".format(source_path)
 	spatial_ref = r"{}\templates\template.prj".format(source_path)
 	output_path = r"C:\Users\pruszyns\Desktop\output" # common place for delta files for all stages of the process
 	
+	cities = scope_selector()
 	
-	#cities = ["busan","changwon_si","daegu","daejeon","gwangju","seongnam_si","seoul","suwon_si","ulsan","yongin_si"]
-	cities = ["incheon"]
 	current_release = "2017_09"
 	previous_release = "2017_06"
 	

@@ -8,19 +8,38 @@ def get_time():
 
 log_file = open(r"C:\Users\pruszyns\Desktop\logs\{} bld-prepare-validation-log.txt".format(get_time()), "w")	
 
-
 def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
 	
+def copy(source_dir, target_dir):
+				
+	elements = os.listdir(source_dir)
 	
+	for element in elements:
+		if not os.path.exists(target_dir + "\{}".format(element)):
+			shutil.copy(source_dir + "\{}".format(element), target_dir)
+		else:
+			status("File already exist: ",element)
+			
+def create_dir(dir):
+	if not os.path.exists(dir):
+		os.makedirs(dir)
+		
+def scope_selector():
+    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+        scope = fscope.readlines()
+        scope_fix = [element.strip() for element in scope]
+		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
+    return scope_filtered
+		
 def main():
 	
 	validation_path = r"C:\city\Building_layer\02_operations\XX_validation"
 	lm_release = "2017_12"
 	release = "2017_09"
-	cities = ["incheon"]
+	cities = scope_selector()
 	
 	for city in cities:
 	
@@ -31,51 +50,39 @@ def main():
 			
 			city_dir = validation_path + "\{}".format(city)
 			
-			if not os.path.exists(city_dir):
-				os.makedirs(city_dir)
+			# Create city directory
+			create_dir(city_dir)
 				
 			bld = city_dir + r"\bld"
 			
-			if not os.path.exists(bld):
-				os.makedirs(bld)
+			# Create 'bld' directory
+			create_dir(bld)
 				
 			lm = city_dir + r"\3dlm"
 			
-			if not os.path.exists(lm):
-				os.makedirs(lm)
+			# Create '3dlm' directory
+			create_dir(lm)
 				
 			extents = city_dir + r"\extents"
 			
-			if not os.path.exists(extents):
-				os.makedirs(extents)
+			# Create 'extents' directory
+			create_dir(extents)
 			
 			
 			status("Copying 3dlm...")
 			
 			
 			lm_source_dir = r"C:\city\Extents\3DLM\kor\{}".format(lm_release)
-			
-			elements = os.listdir(lm_source_dir)
-			
-			for element in elements:
-				if not os.path.exists(lm + "\{}".format(element)):
-					shutil.copy(lm_source_dir + "\{}".format(element), lm)
-				else:
-					status("File already exist: ",element)
+			# Copy landmarks
+			copy(lm_source_dir,lm)
 				
 			
 			status("Copying buildings layer...")
 			
 			
-			bld_source_dir = r"C:\city\Building_layer\02_operations\{}_delta_integration\{}\integration".format(release,city)
-			
-			elements = os.listdir(bld_source_dir)
-			
-			for element in elements:
-				if not os.path.exists(bld + "\{}".format(element)):
-					shutil.copy(bld_source_dir + "\{}".format(element), bld)
-				else:
-					status("File already exist: ",element)
+			bld_source_dir = r"C:\city\Building_layer\02_operations\{}_delta_integration\{}\integration".format(release,city)	
+			# Copy building layer source to validation directory
+			copy(bld_source_dir, bld)
 			
 			
 			status("Copying extents...")

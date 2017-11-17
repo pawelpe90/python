@@ -13,13 +13,17 @@ def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
-
 	
+def scope_selector():
+    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+        scope = fscope.readlines()
+        scope_fix = [element.strip() for element in scope]
+		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
+    return scope_filtered
+
 def main():
 
-	# below all 21 cities	
-	# cities = ["changwon_si","daegu","seongnam_si","seoul","suwon_si","yongin_si","busan","chungcheongbuk_do","chungcheongnam_do","daejeon","gyeongsangbuk_do","gyeongsangnam_do","gangwon_do","gyeonggi_do","incheon","jeollabuk_do","jellanam_do","gwangju","sejong_si","ulsan","jeju_do"]
-	cities = ["incheon"]
+	cities = scope_selector()
 	release = "2017_09"
 	
 	for city in cities:

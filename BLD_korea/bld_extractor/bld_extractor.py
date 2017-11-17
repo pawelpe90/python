@@ -2,7 +2,6 @@ import datetime as dt
 import arcpy
 import os
 
-
 def get_time():
 	return str(dt.datetime.now())[:19].replace(":", "-")
 
@@ -12,7 +11,13 @@ def status(content, city = ""):
 	time = get_time()
 	print "{} {}{}".format(time, content, city)
 	log_file.write("{} {}{}\n".format(time, content, city))
-
+	
+def scope_selector():
+    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+        scope = fscope.readlines()
+        scope_fix = [element.strip() for element in scope]
+		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
+    return scope_filtered
 	
 def main():
 	
@@ -30,11 +35,10 @@ def main():
 	arcpy.env.workspace = r"C:\city\Building_layer\06_public_sources\kor{}.gdb".format(release)
 	fcs = arcpy.ListFeatureClasses()
 	
-	cities = ["incheon"]
-	# below list of all 21 cities
-	# cities = ["sejong_si","chungcheongbuk_do", "chungcheongnam_do", "gangwon_do", "gyeonggi_do", "gyeongsangbuk_do", "gyeongsangnam_do", "jeju_do", "jellanam_do", "jeollabuk_do", "busan","changwon_si","daegu","daejeon","gwangju","seongnam_si","seoul","suwon_si","ulsan","yongin_si","incheon"]
+	cities = scope_selector()
 	
 	for city in cities:
+	
 		try:
 			
 			# Checking if file already exists
