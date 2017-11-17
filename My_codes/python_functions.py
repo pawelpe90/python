@@ -15,5 +15,5 @@ os.removedirs(directory)
 
 # Copy files
 import shutil
-shutil.copy2(src, dst)
+shutil.copy(src, dst)
 

@@ -1,0 +1,16 @@
+
+To pull data from remote branch:
+	1. git fetch <origin> (? check if this can be omitted) # in <> name of the remote branch
+	2. git pull origin <delta_flow_edits> # in <> name of the branch
+	
+To push changes to remote branch:
+	1. git add  <BLD_korea/bld_delta_provider/bld_delta_provider.py> (stage) # in <> path to the file to be pushed
+	2. git commit
+	3. git push (--set-upstream)* origin delta_flow_edits  *only during first push
+	
+Other:
+	git add . - add all tracked files to commit
+	cd <path> - change directory
+	pwd - working directory
+	cat <path to file> - displays file content in git command window
+	
