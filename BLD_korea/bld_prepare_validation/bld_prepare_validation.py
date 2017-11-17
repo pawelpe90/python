@@ -34,15 +34,20 @@ def main():
 			if not os.path.exists(city_dir):
 				os.makedirs(city_dir)
 				
-			bld = city_dir + "\bld"
+			bld = city_dir + r"\bld"
 			
 			if not os.path.exists(bld):
 				os.makedirs(bld)
 				
-			lm = city_dir + "\3dlm"
+			lm = city_dir + r"\3dlm"
 			
 			if not os.path.exists(lm):
 				os.makedirs(lm)
+				
+			extents = city_dir + r"\extents"
+			
+			if not os.path.exists(extents):
+				os.makedirs(extents)
 			
 			
 			status("Copying 3dlm...")
@@ -53,7 +58,10 @@ def main():
 			elements = os.listdir(lm_source_dir)
 			
 			for element in elements:
-				shutil.copy(lm_source_dir + "\{}".format(element), lm)
+				if not os.path.exists(lm + "\{}".format(element)):
+					shutil.copy(lm_source_dir + "\{}".format(element), lm)
+				else:
+					status("File already exist: ",element)
 				
 			
 			status("Copying buildings layer...")
@@ -64,15 +72,44 @@ def main():
 			elements = os.listdir(bld_source_dir)
 			
 			for element in elements:
-				shutil.copy(bld_source_dir + "\{}".format(element), bld)
+				if not os.path.exists(bld + "\{}".format(element)):
+					shutil.copy(bld_source_dir + "\{}".format(element), bld)
+				else:
+					status("File already exist: ",element)
 			
+			
+			status("Copying extents...")
+			
+			
+			product_types = ["ACM","ACMLOD1","BLD"]
+			
+			for product in product_types:
+			
+				extents_source_dir = r"C:\city\Extents\{}\{}".format(product,lm_release)
+				
+				elements = os.listdir(extents_source_dir)
+				
+				if not os.path.exists(extents + r"\{}".format(product)):
+					os.makedirs(extents + r"\{}".format(product))
+				
+				for element in elements:
+					try:
+						if not os.path.exists(extents + "\{}\{}".format(product, element)):
+							shutil.copy(extents_source_dir + "\{}".format(element), extents + r"\{}".format(product))
+						else:
+							status("File already exist: ",element)
+					except Exception as err:
+						status("Exception:" ,str(err))
+						continue
+				
 			
 		except Exception as err:
 		
 			status("Exception found in ", city)
+			status("Exception:" ,str(err))
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
-			
+
 			continue
 			
 			
