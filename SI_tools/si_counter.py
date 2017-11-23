@@ -22,18 +22,18 @@ def list_all_signposts_in_dataset(path,country,dataset,signposts):
 def main():
 
     extension = '.svg'
-    region = "nam"
-    release = "2017.09"
+    region = "kor"
+    release = raw_input("Release in pattern yyyy_mm: ")
 
-    counts_file = open(r"C:\Users\pruszyns\Desktop\6_Signposts\{}\{}\{}1709_counts.txt".format(release,region,region), "w")
-    signposts = open(r"C:\Users\pruszyns\Desktop\6_Signposts\{}\{}\{}1709_list.txt".format(release,region,region), "a")
+    counts_file = open(r"C:\city\Signposts\Tools\{}_{}_counts.txt".format(region,release), "w")
+    signposts = open(r"C:\city\Signposts\Tools\{}_{}_list.txt".format(region,release), "a")
 
-    with open(r"C:\Users\pruszyns\Desktop\6_Signposts\{}\{}\{}.txt".format(release,region,region), "r") as f:
+    with open(r"C:\city\Signposts\Tools\{}.txt".format(region), "r") as f:
         content = f.readlines()
         for element in content:
             country = element.split(",")[0]
             dataset = element.split(",")[1].strip()
-            path = r"R:\Signpost\4_Validation\{}\{}\{}\{}".format(release, region, country, dataset)
+            path = r"C:\city\Signposts\02_Validation\{}\{}\{}\{}".format(release, region, country, dataset)
 
             list_all_signposts_in_dataset(path,country,dataset,signposts)
 
