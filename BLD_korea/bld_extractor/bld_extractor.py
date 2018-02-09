@@ -13,15 +13,15 @@ def status(content, city = ""):
 	log_file.write("{} {}{}\n".format(time, content, city))
 	
 def scope_selector():
-    with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
-        scope = fscope.readlines()
-        scope_fix = [element.strip() for element in scope]
+	with open(r"C:\Users\pruszyns\Desktop\python-repo\python\BLD_korea\scope.txt", "r") as fscope:
+		scope = fscope.readlines()
+		scope_fix = [element.strip() for element in scope]
 		scope_filtered = [i for i in scope_fix if not i.startswith("#")]
-    return scope_filtered
+	return scope_filtered
 	
 def main():
 	
-	release = "2017_09"
+	release = "2018_03"
 	
 	# Local variables:
 	#CopiedFeatures = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures"
@@ -99,10 +99,12 @@ def main():
 	
 		except Exception as err:
 			status("Exception found in ", city)
+			status("Exception:" ,str(err))
 			log_file.write(str(err.args[0]))
 			print "\nScript will continue with the next city. Check logfile to find more details about exception.\n"
 			arcpy.Delete_management("Extent")
 			arcpy.Delete_management(CopiedFeatures)
+			arcpy.Delete_management(CopiedFeaturesExtent)
 			continue
 			
 	status("Application finished.")	

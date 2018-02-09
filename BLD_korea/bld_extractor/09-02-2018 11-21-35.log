@@ -1,0 +1,7 @@
+INFO 02/09/2018 11:21:35  Local variables created
+INFO 02/09/2018 11:21:39  Working on... sejong_si
+ERROR 02/09/2018 11:21:42  Exception found in sejong_si
+ERROR 02/09/2018 11:21:42  Exception: Failed to execute. Parameters are not valid.
+ERROR 000725: Output Feature Class: Dataset C:\Users\pruszyns\Documents\ArcGIS\Default.gdb\CopiedFeaturesExtent_sejong_si already exists.
+Failed to execute (CopyFeatures).
+
