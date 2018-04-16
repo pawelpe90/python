@@ -17,3 +17,29 @@ os.removedirs(directory)
 import shutil
 shutil.copy(src, dst)
 
+# Listing elements of directory
+os.listdir(path)
+
+# Take arguments from command line
+sys.argv[i]
+
+# Open file with explorer
+from Tkinter import Tk
+from tkFileDialog import askopenfilename
+opts = {}
+opts['filetypes'] = [('Shape files','.shp')]
+
+Tk().withdraw()
+fc = askopenfilename(**opts)
+
+# Sort dict
+def sort_by_x(data):
+	return data["x"]
+dict.sort(key=sort_by_x,reverse=False)
+
+from functools import reduce
+reduce(lambda x, y: x * y, nums)
+
+minutes, seconds = divmod(seconds, 60)
+
+for path,folder,files in os.walk(dir):

@@ -1,0 +1,8 @@
+copy signposts(country_name,dataset,signpost_id)
+from 'D:\14_buildings_layer\XX_temp\PostgreSQL\signpost_test.csv' DELIMITER ',' CSV HEADER;
+
+create table signposts (
+    country varchar(3) NOT NULL,
+    dataset varchar(3) NOT NULL,
+    signpost_id varchar(15) primary key
+);

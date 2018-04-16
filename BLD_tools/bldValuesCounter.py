@@ -9,9 +9,10 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import arcpy
+import os
 
-log_file = open(r"C:\Users\pruszyns\Desktop\testing\log.txt", "w")
-output_file = open(r"C:\Users\pruszyns\Desktop\testing\output.txt", "w")
+log_file = open(r"D:\14_buildings_layer\XX_temp\06122017\log.txt", "w")
+output_file = open(r"D:\14_buildings_layer\XX_temp\06122017\output.txt", "w")
 output_file.write("CityName,TotalPolyCount,2dCount,acmlod1Count,acmCount,3dlmRelatedTotal,3dlm2dRelated,3dlmACMlod1Related,3dlmACMRelated,3dlmIntegrated\n")
 
 def status(content, city = ""):
@@ -23,15 +24,16 @@ def clean_up(lyr):
 
 def main():
 
-    cities = ["ottawa"]
+    cities = os.listdir(r"D:\14_buildings_layer\analysis\ukraine\1803\01_accepted\eur\ukr")
 
-    try:
-        for city in cities:
-
+    for city in cities:
+	
+        try:
+		
             status("Working on... ",city)
 
             CopiedFeatures = "C:\\Users\\pruszyns\\Documents\\ArcGIS\\Default.gdb\\CopiedFeatures{}".format(city)
-            city_path = r"C:\Users\pruszyns\Desktop\testing\{}\can_{}_bufo.shp".format(city,city)
+            city_path = r"D:\14_buildings_layer\analysis\ukraine\1803\01_accepted\eur\ukr\{}\ukr_{}_bufo.shp".format(city,city)
             arcpy.MakeFeatureLayer_management(city_path, "City")
 
             #Counting total polygon number
@@ -83,23 +85,15 @@ def main():
 
             status("FINISHED FOR ", city)
 
-            log_file.close()
-            output_file.close()
 
-    except Exception as err:
-        print(err.args[0])
-        clean_up("City")
-        clean_up(CopiedFeatures)
+        except Exception as err:
+            print(err.args[0])
+            clean_up("City")
+            clean_up(CopiedFeatures)
+            continue
+
 
 main()
-
-
-
-
-
-
-
-
-
-
+log_file.close()
+output_file.close()
 
